@@ -8,6 +8,11 @@ This is a Magic The Gathering Card Viewer. It's written in Java and the GUI was 
 
 In order to use the app you have to download the project open it in you IDE(I'm  using [Netbeans](https://netbeans.org/)). Right click on the project and hit Clean and Build. Navigate to the project which is probably under \Documents\NetBeansProjects\mtg-card-viewer\dist and there you will find a .jar file which you can copy and paste to your desktop and use from now on.
 
+## How to:
+
+Type the name of the card in the first box and click search or press enter. We are pulling data from the scryfall api so the image and text may take a little time to appear if you typed something wrong a message will appear informing you. 
+
+
 ## Outro 
 
 Thanks for passing by my little project and if you have any questions feel free to ask! 
