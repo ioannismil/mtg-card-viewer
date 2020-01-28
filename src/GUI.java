@@ -64,6 +64,10 @@ private static HttpURLConnection connection;
         lblUsdFoil = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         lblEuro = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtOracle = new javax.swing.JTextArea();
+        lblLgal = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MTG Card Viewer");
@@ -120,6 +124,20 @@ private static HttpURLConnection connection;
 
         lblEuro.setText("price");
 
+        txtOracle.setEditable(false);
+        txtOracle.setColumns(4);
+        txtOracle.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        txtOracle.setRows(5);
+        txtOracle.setTabSize(1);
+        txtOracle.setWrapStyleWord(true);
+        txtOracle.setAutoscrolls(false);
+        txtOracle.setMargin(new java.awt.Insets(2, 5, 2, 2));
+        jScrollPane2.setViewportView(txtOracle);
+
+        lblLgal.setText("Legalities");
+
+        jLabel4.setText("Oracle Text");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -130,6 +148,15 @@ private static HttpURLConnection connection;
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblLgal))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 265, Short.MAX_VALUE)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -141,16 +168,14 @@ private static HttpURLConnection connection;
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblEuro)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCardName, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSearch)
-                        .addGap(0, 114, Short.MAX_VALUE)))
+                                .addComponent(lblEuro))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtCardName, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSearch)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -163,9 +188,6 @@ private static HttpURLConnection connection;
                     .addComponent(btnSearch))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -174,12 +196,26 @@ private static HttpURLConnection connection;
                             .addComponent(lblUsdFoil)
                             .addComponent(jLabel7)
                             .addComponent(lblEuro))
-                        .addGap(12, 12, 12)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblLgal)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         txtCardName.getAccessibleContext().setAccessibleName("cardName");
+        lblLgal.getAccessibleContext().setAccessibleName("Legalities");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -191,6 +227,7 @@ private static HttpURLConnection connection;
         String line;
         StringBuffer responseContent = new StringBuffer();
             String cardName = txtCardName.getText();
+            
             String apiCall = "https://api.scryfall.com/cards/named?exact=" + cardName;
             String encodedUrl = URLEncoder.encode(apiCall);
             //replaces spaces with %20, creates the URL and makes a GET request to the scryfall api
@@ -219,10 +256,17 @@ private static HttpURLConnection connection;
             ObjectMapper mapp = new ObjectMapper();
             ApiReturnMapper apiReturn = mapp.readValue(responseContent.toString(),ApiReturnMapper.class);
             //Sets values
-            txtAreaLegal.setText(apiReturn.getLegalities().getAll());
-            lblUsd.setText(apiReturn.getPrices().getUsd());
-            lblUsdFoil.setText(apiReturn.getPrices().getUsd_foil());
-            lblEuro.setText(apiReturn.getPrices().getEur());
+            String oracleText = apiReturn.getOracle_text().replace("{T}","{Tap}").replace("{W}", "{White}").replace("{U}", "{Blue}").replace("{B}","{Black}").replace("{G}","{Green}").replace("{R}","{Red}");
+            String euro = apiReturn.getPrices().getEur();
+            String usd =apiReturn.getPrices().getUsd();
+            String usdFoil = apiReturn.getPrices().getUsd_foil();
+            String legalities = apiReturn.getLegalities().getAll();
+            txtAreaLegal.setText(legalities);
+            lblUsd.setText(usd);
+            lblUsdFoil.setText(usdFoil);
+            lblEuro.setText(euro);
+            txtOracle.setLineWrap(true);
+            txtOracle.setText(oracleText);
             //Sets Image
             URL url = new URL(apiReturn.getImage_uris().getNormal());
             Image image = ImageIO.read(url);
@@ -299,13 +343,17 @@ private static HttpURLConnection connection;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblEuro;
+    private javax.swing.JLabel lblLgal;
     private javax.swing.JLabel lblUsd;
     private javax.swing.JLabel lblUsdFoil;
     private javax.swing.JTextArea txtAreaLegal;
     private javax.swing.JTextField txtCardName;
+    private javax.swing.JTextArea txtOracle;
     // End of variables declaration//GEN-END:variables
 }

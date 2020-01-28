@@ -17,7 +17,16 @@ public class ApiReturnMapper {
     private ImageSizes image_uris;
     private Legalities legalities;
     private Prices prices;
+    private String oracle_text;
 
+    public String getOracle_text() {
+        return oracle_text;
+    }
+
+    public void setOracle_text(String oracle_text) {
+        this.oracle_text = oracle_text;
+    }
+    
     public Prices getPrices() {
         return prices;
     }
