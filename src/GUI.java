@@ -1,18 +1,26 @@
 
 import java.awt.Image;
 import static java.awt.Image.SCALE_SMOOTH;
+import java.awt.List;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -68,6 +76,8 @@ private static HttpURLConnection connection;
         txtOracle = new javax.swing.JTextArea();
         lblLgal = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        btnSaveCard = new javax.swing.JButton();
+        btnOpen = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MTG Card Viewer");
@@ -109,7 +119,8 @@ private static HttpURLConnection connection;
         txtAreaLegal.setEditable(false);
         txtAreaLegal.setColumns(16);
         txtAreaLegal.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        txtAreaLegal.setRows(5);
+        txtAreaLegal.setRows(1);
+        txtAreaLegal.setMargin(new java.awt.Insets(2, 5, 2, 2));
         jScrollPane1.setViewportView(txtAreaLegal);
 
         jLabel3.setText("USD: ");
@@ -138,6 +149,20 @@ private static HttpURLConnection connection;
 
         jLabel4.setText("Oracle Text");
 
+        btnSaveCard.setText("Save Card");
+        btnSaveCard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveCardActionPerformed(evt);
+            }
+        });
+
+        btnOpen.setText("Open");
+        btnOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOpenActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,9 +176,9 @@ private static HttpURLConnection connection;
                             .addComponent(lblLgal))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 265, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,8 +199,12 @@ private static HttpURLConnection connection;
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtCardName, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnSearch)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(btnSearch)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSaveCard)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnOpen)))
+                        .addGap(0, 215, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -185,7 +214,9 @@ private static HttpURLConnection connection;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtCardName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch))
+                    .addComponent(btnSearch)
+                    .addComponent(btnSaveCard)
+                    .addComponent(btnOpen))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
@@ -215,7 +246,6 @@ private static HttpURLConnection connection;
         );
 
         txtCardName.getAccessibleContext().setAccessibleName("cardName");
-        lblLgal.getAccessibleContext().setAccessibleName("Legalities");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -256,11 +286,14 @@ private static HttpURLConnection connection;
             ObjectMapper mapp = new ObjectMapper();
             ApiReturnMapper apiReturn = mapp.readValue(responseContent.toString(),ApiReturnMapper.class);
             //Sets values
-            String oracleText = apiReturn.getOracle_text().replace("{T}","{Tap}").replace("{W}", "{White}").replace("{U}", "{Blue}").replace("{B}","{Black}").replace("{G}","{Green}").replace("{R}","{Red}");
+            String oracleText = apiReturn.getOracle_text().replace("{T}","{Tap}").replace("{W}", "{White}").replace("{U}", "{Blue}").replace("{B}","{Black}").replace("{G}","{Green}").replace("{R}","{Red}").replace("\n", " ");
             String euro = apiReturn.getPrices().getEur();
             String usd =apiReturn.getPrices().getUsd();
             String usdFoil = apiReturn.getPrices().getUsd_foil();
             String legalities = apiReturn.getLegalities().getAll();
+            String imageUrl = apiReturn.getImage_uris().getNormal();
+            String actualName = apiReturn.getName();
+            txtCardName.setText(actualName);
             txtAreaLegal.setText(legalities);
             lblUsd.setText(usd);
             lblUsdFoil.setText(usdFoil);
@@ -268,7 +301,7 @@ private static HttpURLConnection connection;
             txtOracle.setLineWrap(true);
             txtOracle.setText(oracleText);
             //Sets Image
-            URL url = new URL(apiReturn.getImage_uris().getNormal());
+            URL url = new URL(imageUrl);
             Image image = ImageIO.read(url);
             jLabel2.setIcon(new ImageIcon(image.getScaledInstance(244, 320, SCALE_SMOOTH)));
         } catch (MalformedURLException ex) {
@@ -300,6 +333,59 @@ private static HttpURLConnection connection;
             btnSearch.doClick();
         }
     }//GEN-LAST:event_txtCardNameKeyPressed
+
+    private void btnSaveCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveCardActionPerformed
+        //Get values from fields    
+        String cardName = txtCardName.getText();    
+            String oracleText = txtOracle.getText();
+            String euro = lblEuro.getText();
+            String usd = lblUsd.getText();
+            String usdFoil = lblUsdFoil.getText();
+            String legalities = txtAreaLegal.getText();
+    try {
+        //create/open file and append said values
+        PrintWriter out = new PrintWriter(new FileOutputStream(new File("SavedCards.txt"),true /* append = true */));
+        out.println(cardName);
+        out.println(oracleText);
+        out.println(euro);
+        out.println(usd);
+        out.println(usdFoil);
+        out.println(legalities);
+        //out.println("EOI"); END OF INFO
+        out.close();
+    } catch (FileNotFoundException ex) {
+        Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+    
+    }//GEN-LAST:event_btnSaveCardActionPerformed
+
+    private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
+    try {
+        //open file and read 
+        File file = new File("SavedCards.txt");
+        ArrayList<String> cards = new ArrayList<String>();
+        ArrayList<String> eachCard = new ArrayList<String>();
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        int i=0;
+        String st;
+        //appends each line in arraylist
+        while ((st = br.readLine()) != null) 
+            cards.add(st);
+        /*PRINTS UNTIL REACHES EOI
+        while(!"EOI".equals(cards.get(i))){
+        System.out.println(cards.get(i));
+        i++;
+        }
+        */
+        savedCardsGUI scgui = new savedCardsGUI();
+        scgui.setVisible(true);
+        
+    } catch (IOException ex) {
+        Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+    }//GEN-LAST:event_btnOpenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -339,6 +425,8 @@ private static HttpURLConnection connection;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnOpen;
+    private javax.swing.JButton btnSaveCard;
     private javax.swing.JButton btnSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
