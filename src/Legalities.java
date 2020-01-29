@@ -131,18 +131,18 @@ public class Legalities {
         this.oldschool = oldschool;
     }
     public String getAll(){
-        return  " standard: " + getStandard()+
+        return  "standard: " + getStandard()+
                 "\n future: "+ getFuture()+
-        "\n historic: "+ getHistoric()+
-        "\n pioneer: "+ getPioneer()+
-        "\n modern: "+ getModern()+
-        "\n legacy: "+ getLegacy()+
-        "\n pauper: "+ getPauper()+
-        "\n vintage: "+ getVintage()+
-        "\n penny: "+ getPenny()+
-        "\n commander: "+ getCommander()+
-        "\n brawl: "+ getBrawl()+
-        "\n duel: "+ getDuel()+
-        "\n oldschool: "+ getOldschool();
+        "\nhistoric: "+ getHistoric()+
+        "\npioneer: "+ getPioneer()+
+        "\nmodern: "+ getModern()+
+        "\nlegacy: "+ getLegacy()+
+        "\npauper: "+ getPauper()+
+        "\nvintage: "+ getVintage()+
+        "\npenny: "+ getPenny()+
+        "\ncommander: "+ getCommander()+
+        "\nbrawl: "+ getBrawl()+
+        "\nduel: "+ getDuel()+
+        "\noldschool: "+ getOldschool();
     }
 }
