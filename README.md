@@ -6,7 +6,7 @@ This is a Magic The Gathering Card Viewer. It's written in Java and the GUI was 
 
 ## Getting Started
 
-In order to use the app you have to download the project open it in you IDE(I'm  using [Netbeans](https://netbeans.org/)). Right click on the project and hit Clean and Build. Navigate to the project which is probably under \Documents\NetBeansProjects\mtg-card-viewer\dist and there you will find a .jar file which you can copy and paste to your desktop and use from now on.
+In order to use the app you have to download the project open it in you IDE(I'm  using [Netbeans](https://netbeans.org/)). Also you will need the [Jackson JSON library](http://www.java2s.com/Code/Jar/j/Downloadjacksonall190jar.htm). Right click on the project and hit Clean and Build. Navigate to the project which is probably under \Documents\NetBeansProjects\mtg-card-viewer\dist and there you will find a .jar file which you can copy and paste to your desktop and use from now on.
 
 ## How to:
 
