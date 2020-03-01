@@ -78,11 +78,14 @@ private static HttpURLConnection connection;
         jLabel4 = new javax.swing.JLabel();
         btnSaveCard = new javax.swing.JButton();
         btnOpen = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        txtAreaNotLegal = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MTG Card Viewer");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setLocation(new java.awt.Point(350, 200));
+        setLocation(new java.awt.Point(150, 150));
         setResizable(false);
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -136,16 +139,14 @@ private static HttpURLConnection connection;
         lblEuro.setText("price");
 
         txtOracle.setEditable(false);
-        txtOracle.setColumns(4);
+        txtOracle.setColumns(20);
         txtOracle.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         txtOracle.setRows(5);
-        txtOracle.setTabSize(1);
-        txtOracle.setWrapStyleWord(true);
-        txtOracle.setAutoscrolls(false);
-        txtOracle.setMargin(new java.awt.Insets(2, 5, 2, 2));
+        txtOracle.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtOracle.setMinimumSize(new java.awt.Dimension(0, 16));
         jScrollPane2.setViewportView(txtOracle);
 
-        lblLgal.setText("Legalities");
+        lblLgal.setText("Legal");
 
         jLabel4.setText("Oracle Text");
 
@@ -163,6 +164,15 @@ private static HttpURLConnection connection;
             }
         });
 
+        jLabel6.setText("Not Legal");
+
+        txtAreaNotLegal.setEditable(false);
+        txtAreaNotLegal.setColumns(16);
+        txtAreaNotLegal.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        txtAreaNotLegal.setRows(1);
+        txtAreaNotLegal.setMargin(new java.awt.Insets(2, 5, 2, 2));
+        jScrollPane4.setViewportView(txtAreaNotLegal);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -172,40 +182,42 @@ private static HttpURLConnection connection;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblLgal))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lblLgal)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblUsd)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblUsdFoil)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblEuro))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtCardName, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnSearch)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSaveCard)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnOpen)))
-                        .addGap(0, 215, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtCardName, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSearch)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSaveCard)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnOpen)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblUsd)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblUsdFoil)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblEuro))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,33 +228,32 @@ private static HttpURLConnection connection;
                     .addComponent(txtCardName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearch)
                     .addComponent(btnSaveCard)
-                    .addComponent(btnOpen))
+                    .addComponent(btnOpen)
+                    .addComponent(jLabel3)
+                    .addComponent(lblUsd)
+                    .addComponent(jLabel5)
+                    .addComponent(lblUsdFoil)
+                    .addComponent(jLabel7)
+                    .addComponent(lblEuro))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(lblUsd)
-                            .addComponent(jLabel5)
-                            .addComponent(lblUsdFoil)
-                            .addComponent(jLabel7)
-                            .addComponent(lblEuro))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblLgal, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblLgal)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel2)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(3, 3, 3))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         txtCardName.getAccessibleContext().setAccessibleName("cardName");
@@ -290,11 +301,13 @@ private static HttpURLConnection connection;
             String euro = apiReturn.getPrices().getEur();
             String usd =apiReturn.getPrices().getUsd();
             String usdFoil = apiReturn.getPrices().getUsd_foil();
-            String legalities = apiReturn.getLegalities().getAll();
+            String legalCards = apiReturn.getLegalities().getLegal();
+            String notLegalCards = apiReturn.getLegalities().getNotLegal();
             String imageUrl = apiReturn.getImage_uris().getNormal();
             String actualName = apiReturn.getName();
             txtCardName.setText(actualName);
-            txtAreaLegal.setText(legalities);
+            txtAreaLegal.setText(legalCards);
+            txtAreaNotLegal.setText(notLegalCards);
             lblUsd.setText(usd);
             lblUsdFoil.setText(usdFoil);
             lblEuro.setText(euro);
@@ -341,7 +354,10 @@ private static HttpURLConnection connection;
             String euro = lblEuro.getText();
             String usd = lblUsd.getText();
             String usdFoil = lblUsdFoil.getText();
-            String legalities = txtAreaLegal.getText();
+            String legal = txtAreaLegal.getText();
+            legal=legal.replaceAll("\n$","");          
+            String notLegal = txtAreaNotLegal.getText();
+            notLegal=notLegal.replaceAll("\n$","");
     try {
         //create/open file and append said values
         PrintWriter out = new PrintWriter(new FileOutputStream(new File("SavedCards.txt"),true /* append = true */));
@@ -350,7 +366,12 @@ private static HttpURLConnection connection;
         out.println(euro);
         out.println(usd);
         out.println(usdFoil);
-        out.println(legalities);
+        out.println("LEGAL");
+        if(!legal.equals(""))
+            out.println(legal);
+        out.println("NOTLEGAL");
+        if(!notLegal.equals(""))
+            out.println(notLegal);
         //out.println("EOI"); END OF INFO
         out.close();
     } catch (FileNotFoundException ex) {
@@ -433,14 +454,17 @@ private static HttpURLConnection connection;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblEuro;
     private javax.swing.JLabel lblLgal;
     private javax.swing.JLabel lblUsd;
     private javax.swing.JLabel lblUsdFoil;
     private javax.swing.JTextArea txtAreaLegal;
+    private javax.swing.JTextArea txtAreaNotLegal;
     private javax.swing.JTextField txtCardName;
     private javax.swing.JTextArea txtOracle;
     // End of variables declaration//GEN-END:variables

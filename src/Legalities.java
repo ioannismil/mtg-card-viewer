@@ -130,6 +130,66 @@ public class Legalities {
     public void setOldschool(String oldschool) {
         this.oldschool = oldschool;
     }
+    public String getLegal(){
+        String output="";
+        if(getStandard().equals("legal"))
+            output+="Standard \n";
+        if(getFuture().equals("legal"))
+            output+="Future \n";
+        if(getHistoric().equals("legal"))
+            output+="Historic \n";
+        if(getPioneer().equals("legal"))
+            output+="Pioneer \n";
+        if(getModern().equals("legal"))
+            output+="Modern \n";
+        if(getLegacy().equals("legal"))
+            output+="Legacy \n";
+        if(getPauper().equals("legal"))
+            output+="Pauper \n";
+        if(getVintage().equals("legal"))
+            output+="Vintage \n";
+        if(getPenny().equals("legal"))
+            output+="Penny \n";
+        if(getCommander().equals("legal"))
+            output+="Commander \n";
+        if(getBrawl().equals("legal"))
+            output+="Brawl \n";
+        if(getDuel().equals("legal"))
+            output+="Duel \n";
+        if(getOldschool().equals("legal"))
+            output+="Oldschool \n";
+        return output;
+    }
+        public String getNotLegal(){
+        String output="";
+        if(getStandard().equals("not_legal"))
+            output+="Standard \n";
+        if(getFuture().equals("not_legal"))
+            output+="Future \n";
+        if(getHistoric().equals("not_legal"))
+            output+="Historic \n";
+        if(getPioneer().equals("not_legal"))
+            output+="Pioneer \n";
+        if(getModern().equals("not_legal"))
+            output+="Modern \n";
+        if(getLegacy().equals("not_legal"))
+            output+="Legacy \n";
+        if(getPauper().equals("not_legal"))
+            output+="Pauper \n";
+        if(getVintage().equals("not_legal"))
+            output+="Vintage \n";
+        if(getPenny().equals("not_legal"))
+            output+="Penny \n";
+        if(getCommander().equals("not_legal"))
+            output+="Commander \n";
+        if(getBrawl().equals("not_legal"))
+            output+="Brawl \n";
+        if(getDuel().equals("not_legal"))
+            output+="Duel \n";
+        if(getOldschool().equals("not_legal"))
+            output+="Oldschool \n";
+        return output;
+    }
     public String getAll(){
         return  "standard: " + getStandard()+
                 "\n future: "+ getFuture()+

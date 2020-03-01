@@ -38,10 +38,10 @@ public class savedCardsGUI extends javax.swing.JFrame {
         while ((st = br.readLine()) != null) 
             cards.add(st);
         final DefaultListModel cardModel = new DefaultListModel();
-       int numOfSavedCards = cards.size()/18;
+       int numOfSavedCards = cards.size()/20;
        int i=0;
        while(numOfSavedCards>i){
-       cardModel.addElement(cards.get(i*18));
+       cardModel.addElement(cards.get(i*20));
        i++;
        }
          initComponents();
@@ -81,9 +81,12 @@ public class savedCardsGUI extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        txtAreaLegalities = new javax.swing.JTextArea();
+        txtAreaLegal = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
         btnDelete = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        txtAreaNotLegal = new javax.swing.JTextArea();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("MTG Card Viewer - Saved Cards");
@@ -119,12 +122,12 @@ public class savedCardsGUI extends javax.swing.JFrame {
 
         jLabel5.setText("Euros:");
 
-        jLabel6.setText("Legalities:");
+        jLabel6.setText("Legal");
 
-        txtAreaLegalities.setColumns(4);
-        txtAreaLegalities.setRows(1);
-        txtAreaLegalities.setMargin(new java.awt.Insets(0, 5, 0, 0));
-        jScrollPane3.setViewportView(txtAreaLegalities);
+        txtAreaLegal.setColumns(4);
+        txtAreaLegal.setRows(1);
+        txtAreaLegal.setMargin(new java.awt.Insets(0, 5, 0, 0));
+        jScrollPane3.setViewportView(txtAreaLegal);
 
         jLabel7.setText("Saved Cards");
 
@@ -134,6 +137,13 @@ public class savedCardsGUI extends javax.swing.JFrame {
                 btnDeleteActionPerformed(evt);
             }
         });
+
+        txtAreaNotLegal.setColumns(4);
+        txtAreaNotLegal.setRows(1);
+        txtAreaNotLegal.setMargin(new java.awt.Insets(0, 5, 0, 0));
+        jScrollPane4.setViewportView(txtAreaNotLegal);
+
+        jLabel8.setText("Not Legal");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -173,8 +183,12 @@ public class savedCardsGUI extends javax.swing.JFrame {
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btnDelete))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -183,7 +197,9 @@ public class savedCardsGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(jLabel8))
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,16 +217,16 @@ public class savedCardsGUI extends javax.swing.JFrame {
                                 .addComponent(jScrollPane2))
                             .addGap(28, 28, 28)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(lblusd, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lblusd, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3)
                                 .addComponent(jLabel4)
                                 .addComponent(lblfoil, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lbleuro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDelete)
                 .addContainerGap(14, Short.MAX_VALUE))
@@ -232,18 +248,38 @@ public class savedCardsGUI extends javax.swing.JFrame {
         String st;
         while ((st = br.readLine()) != null) 
             cards.add(st);
-        index=index*18;
+        index=index*20;
         txtName.setText(cards.get(index));
         txtAreaOracle.setLineWrap(true);
         txtAreaOracle.setText(cards.get(index+1));
         lblusd.setText(cards.get(index+2));
         lblfoil.setText(cards.get(index+3));
         lbleuro.setText(cards.get(index+4));
-        txtAreaLegalities.setText(cards.get(index+5)+"\n"+cards.get(index+6)+"\n"+cards.get(index+7)+"\n"
-                +cards.get(index+8)+"\n"+cards.get(index+9)+"\n"+cards.get(index+10)+"\n"
-                +cards.get(index+11)+"\n"+cards.get(index+12)+"\n"+cards.get(index+13)+"\n"
-                +cards.get(index+14)+"\n"+cards.get(index+15)+"\n"+cards.get(index+16)+"\n"
-                +cards.get(index+17));
+        String legal="";
+        int i=6;
+        while(i<19){
+            if(cards.get(index+i).equals("NOTLEGAL"))
+                break;
+            else{
+                legal+=cards.get(index+i)+"\n";
+            }
+            i++;
+        }
+                String notLegal="";
+        i=6;
+        boolean found=false;
+        while(i<19){
+         if(cards.get(index+i).equals("NOTLEGAL")){
+            found=true;
+            i++;
+         }
+            if(found){
+                notLegal+=cards.get(index+i)+"\n";
+            }
+            i++;
+        }
+        txtAreaLegal.setText(legal);
+        txtAreaNotLegal.setText(notLegal);
     } catch (IOException ex) {
         Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -265,7 +301,7 @@ public class savedCardsGUI extends javax.swing.JFrame {
         } catch (IOException ex) {
         Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
     }
-        while(i<18){
+        while(i<20){
         cards.remove(indexToDelete);
         i++;
         }
@@ -280,7 +316,7 @@ public class savedCardsGUI extends javax.swing.JFrame {
     } catch (FileNotFoundException ex) {
         Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
     }
-    int numOfSavedCards = cards.size()/18;
+    int numOfSavedCards = cards.size()/20;
     final DefaultListModel cardModel = new DefaultListModel();
         while(numOfSavedCards>i){
        cardModel.addElement(cards.get(i*18));
@@ -339,14 +375,17 @@ public class savedCardsGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lbleuro;
     private javax.swing.JLabel lblfoil;
     private javax.swing.JLabel lblusd;
-    private javax.swing.JTextArea txtAreaLegalities;
+    private javax.swing.JTextArea txtAreaLegal;
+    private javax.swing.JTextArea txtAreaNotLegal;
     private javax.swing.JTextArea txtAreaOracle;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
