@@ -2,7 +2,7 @@
 
 ## Intro
 
-This is a Magic The Gathering Card Viewer. It's written in Java and the GUI was designed using Netbeans' GUI builder. The following project is a result of me not wanting to open my browser everytime I wanted to check out a card, either because I wanted to see what it does, how much mana does it cost, how much money does it cost or on which formats it's playable. I hope you enjoy my little project and if you have any suggestions for any features to add feel free to message me on [reddit](http://reddit.com/u/rockax). Lastly it's my first project in java so excuse any bad practices.
+This is a Magic The Gathering Card Viewer. It's written in Java and the GUI was designed using Netbeans' GUI builder. The following project is a result of me not wanting to open my browser everytime I wanted to check out a card, either because I wanted to see what it does, how much mana it costs, how much money it costs or on which formats it's playable. I hope you enjoy my little project and if you have any suggestions for any features to add feel free to message me on [reddit](http://reddit.com/u/rockax). Lastly it's my first project in java so excuse any bad practices.
 
 ## Getting Started
 
