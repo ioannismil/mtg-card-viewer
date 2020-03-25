@@ -10,12 +10,15 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -119,6 +122,8 @@ private static HttpURLConnection connection;
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 1)); // NOI18N
+
         txtAreaLegal.setEditable(false);
         txtAreaLegal.setColumns(16);
         txtAreaLegal.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -128,21 +133,17 @@ private static HttpURLConnection connection;
 
         jLabel3.setText("USD: ");
 
-        lblUsd.setText("price");
-
         jLabel5.setText("Foil USD:");
 
-        lblUsdFoil.setText("price");
-
         jLabel7.setText("Euro:");
-
-        lblEuro.setText("price");
 
         txtOracle.setEditable(false);
         txtOracle.setColumns(20);
         txtOracle.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         txtOracle.setRows(5);
+        txtOracle.setWrapStyleWord(true);
         txtOracle.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtOracle.setMargin(new java.awt.Insets(2, 5, 0, 2));
         txtOracle.setMinimumSize(new java.awt.Dimension(0, 16));
         jScrollPane2.setViewportView(txtOracle);
 
@@ -157,7 +158,7 @@ private static HttpURLConnection connection;
             }
         });
 
-        btnOpen.setText("Open");
+        btnOpen.setText("View Saved Cards");
         btnOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOpenActionPerformed(evt);
@@ -181,18 +182,6 @@ private static HttpURLConnection connection;
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblLgal)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtCardName, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -201,8 +190,23 @@ private static HttpURLConnection connection;
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSaveCard)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnOpen)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnOpen))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblLgal)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel4))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
@@ -216,7 +220,7 @@ private static HttpURLConnection connection;
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblEuro))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -293,6 +297,7 @@ private static HttpURLConnection connection;
                     responseContent.append(line);
                 }
             }
+            
             //Handles the JSON
             ObjectMapper mapp = new ObjectMapper();
             ApiReturnMapper apiReturn = mapp.readValue(responseContent.toString(),ApiReturnMapper.class);
@@ -316,6 +321,7 @@ private static HttpURLConnection connection;
             //Sets Image
             URL url = new URL(imageUrl);
             Image image = ImageIO.read(url);
+            jLabel2.setText(imageUrl);
             jLabel2.setIcon(new ImageIcon(image.getScaledInstance(244, 320, SCALE_SMOOTH)));
         } catch (MalformedURLException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -355,6 +361,7 @@ private static HttpURLConnection connection;
             String usd = lblUsd.getText();
             String usdFoil = lblUsdFoil.getText();
             String legal = txtAreaLegal.getText();
+            String imageLink = jLabel2.getText();
             legal=legal.replaceAll("\n$","");          
             String notLegal = txtAreaNotLegal.getText();
             notLegal=notLegal.replaceAll("\n$","");
@@ -372,7 +379,7 @@ private static HttpURLConnection connection;
         out.println("NOTLEGAL");
         if(!notLegal.equals(""))
             out.println(notLegal);
-        //out.println("EOI"); END OF INFO
+        out.println(imageLink);
         out.close();
     } catch (FileNotFoundException ex) {
         Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);

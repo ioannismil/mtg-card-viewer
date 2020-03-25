@@ -1,4 +1,6 @@
 
+import java.awt.Image;
+import static java.awt.Image.SCALE_SMOOTH;
 import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,10 +9,13 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.ListModel;
 
 /*
@@ -38,10 +43,10 @@ public class savedCardsGUI extends javax.swing.JFrame {
         while ((st = br.readLine()) != null) 
             cards.add(st);
         final DefaultListModel cardModel = new DefaultListModel();
-       int numOfSavedCards = cards.size()/20;
+       int numOfSavedCards = cards.size()/21;
        int i=0;
        while(numOfSavedCards>i){
-       cardModel.addElement(cards.get(i*20));
+       cardModel.addElement(cards.get(i*21));
        i++;
        }
          initComponents();
@@ -87,10 +92,11 @@ public class savedCardsGUI extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         txtAreaNotLegal = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
+        lblImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("MTG Card Viewer - Saved Cards");
-        setLocation(new java.awt.Point(350, 250));
+        setLocation(new java.awt.Point(250, 250));
         setResizable(false);
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
@@ -114,6 +120,7 @@ public class savedCardsGUI extends javax.swing.JFrame {
         txtAreaOracle.setRows(1);
         txtAreaOracle.setWrapStyleWord(true);
         txtAreaOracle.setAutoscrolls(false);
+        txtAreaOracle.setMargin(new java.awt.Insets(2, 5, 0, 5));
         jScrollPane2.setViewportView(txtAreaOracle);
 
         jLabel3.setText("USD:");
@@ -144,6 +151,8 @@ public class savedCardsGUI extends javax.swing.JFrame {
         jScrollPane4.setViewportView(txtAreaNotLegal);
 
         jLabel8.setText("Not Legal");
+
+        lblImage.setFont(new java.awt.Font("Dialog", 1, 1)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -190,6 +199,8 @@ public class savedCardsGUI extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btnDelete))
+                .addGap(18, 18, 18)
+                .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -230,6 +241,10 @@ public class savedCardsGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDelete)
                 .addContainerGap(14, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -248,7 +263,7 @@ public class savedCardsGUI extends javax.swing.JFrame {
         String st;
         while ((st = br.readLine()) != null) 
             cards.add(st);
-        index=index*20;
+        index=index*21;
         txtName.setText(cards.get(index));
         txtAreaOracle.setLineWrap(true);
         txtAreaOracle.setText(cards.get(index+1));
@@ -257,7 +272,7 @@ public class savedCardsGUI extends javax.swing.JFrame {
         lbleuro.setText(cards.get(index+4));
         String legal="";
         int i=6;
-        while(i<19){
+        while(i<20){
             if(cards.get(index+i).equals("NOTLEGAL"))
                 break;
             else{
@@ -268,7 +283,7 @@ public class savedCardsGUI extends javax.swing.JFrame {
                 String notLegal="";
         i=6;
         boolean found=false;
-        while(i<19){
+        while(i<20){
          if(cards.get(index+i).equals("NOTLEGAL")){
             found=true;
             i++;
@@ -280,9 +295,15 @@ public class savedCardsGUI extends javax.swing.JFrame {
         }
         txtAreaLegal.setText(legal);
         txtAreaNotLegal.setText(notLegal);
+        String imageUrl=cards.get(index+20);
+        URL url = new URL(imageUrl);
+        Image image = ImageIO.read(url);
+        lblImage.setIcon(new ImageIcon(image.getScaledInstance(244, 320, SCALE_SMOOTH)));
     } catch (IOException ex) {
         Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    }       catch (Exception ex) {
+                Logger.getLogger(savedCardsGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } 
     }//GEN-LAST:event_jList1MouseClicked
 
@@ -301,7 +322,7 @@ public class savedCardsGUI extends javax.swing.JFrame {
         } catch (IOException ex) {
         Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
     }
-        while(i<20){
+        while(i<21){
         cards.remove(indexToDelete);
         i++;
         }
@@ -316,7 +337,7 @@ public class savedCardsGUI extends javax.swing.JFrame {
     } catch (FileNotFoundException ex) {
         Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
     }
-    int numOfSavedCards = cards.size()/20;
+    int numOfSavedCards = cards.size()/21;
     final DefaultListModel cardModel = new DefaultListModel();
         while(numOfSavedCards>i){
        cardModel.addElement(cards.get(i*18));
@@ -381,6 +402,7 @@ public class savedCardsGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lbleuro;
     private javax.swing.JLabel lblfoil;
     private javax.swing.JLabel lblusd;
